@@ -14,11 +14,15 @@ FastAPI-based REST API for the AI Teaching Assistant platform.
 
 ## Setup
 
+> **Important:** Use Python 3.11 or 3.12. Python 3.13 is not yet supported by all dependencies.
+
 ### 1. Install Dependencies
 
 ```bash
-# Create virtual environment
+# Create virtual environment (use Python 3.11 or 3.12)
 python -m venv venv
+# Or on Windows with multiple Python versions:
+# py -3.11 -m venv venv
 
 # Activate it
 source venv/bin/activate  # macOS/Linux

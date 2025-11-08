@@ -43,11 +43,13 @@ ai-ta-platform/
 
 ## Prerequisites
 
-- **Python 3.10+**
+- **Python 3.11 or 3.12** (recommended - Python 3.13 not yet supported by all dependencies)
 - **Node.js 18+** and npm
 - **Anthropic API Key** (for Claude)
 
 That's it! SQLite is built into Python, so no database server installation required.
+
+> **Note:** Python 3.13 is not yet supported due to missing pre-built wheels for some dependencies (ChromaDB, sentence-transformers). Please use Python 3.11 or 3.12.
 
 ## Quick Start
 
@@ -293,9 +295,16 @@ ai-ta-platform/
 
 ### Backend won't start
 - Ensure ANTHROPIC_API_KEY is set in .env
-- Check Python version (3.10+)
+- **Check Python version is 3.11 or 3.12** (not 3.13)
 - Verify SECRET_KEY is set
 - Delete ai_ta_platform.db and restart if database issues occur
+
+### Compilation errors during pip install
+- **Error: "Cannot compile programs" or "chroma-hnswlib" build failed**
+  - You're likely using Python 3.13 which isn't supported yet
+  - **Solution:** Install Python 3.11 or 3.12 and recreate your virtual environment
+  - On Windows: `py -3.11 -m venv venv` or `py -3.12 -m venv venv`
+  - Then activate and retry: `venv\Scripts\activate` and `pip install -r requirements.txt`
 
 ### Frontend won't start
 - Check Node.js version (18+)
