@@ -45,27 +45,13 @@ ai-ta-platform/
 
 - **Python 3.10+**
 - **Node.js 18+** and npm
-- **PostgreSQL 14+**
 - **Anthropic API Key** (for Claude)
+
+That's it! SQLite is built into Python, so no database server installation required.
 
 ## Quick Start
 
-### 1. Database Setup
-
-Create a PostgreSQL database:
-
-```bash
-# Login to PostgreSQL
-psql -U postgres
-
-# Create database
-CREATE DATABASE ai_ta_platform;
-
-# Exit
-\q
-```
-
-### 2. Backend Setup
+### 1. Backend Setup
 
 ```bash
 # Navigate to backend
@@ -87,9 +73,9 @@ pip install -r requirements.txt
 cp .env.example .env
 
 # Edit .env and add your credentials:
-# - DATABASE_URL (PostgreSQL connection string)
 # - ANTHROPIC_API_KEY (your Claude API key)
 # - SECRET_KEY (generate with: openssl rand -hex 32)
+# - DATABASE_URL is already set to SQLite (no changes needed)
 
 # Run the backend
 python -m uvicorn app.main:app --reload
@@ -99,7 +85,7 @@ Backend will run at **http://localhost:8000**
 
 API Documentation: **http://localhost:8000/docs**
 
-### 3. Frontend Setup
+### 2. Frontend Setup
 
 ```bash
 # In a new terminal, navigate to frontend
@@ -237,7 +223,7 @@ CHROMA_PERSIST_DIR=./chroma_db
 
 ### Backend
 - **FastAPI** - Modern Python web framework
-- **SQLAlchemy** - ORM for PostgreSQL
+- **SQLAlchemy** - ORM for SQLite
 - **Pydantic** - Data validation
 - **ChromaDB** - Vector database
 - **sentence-transformers** - Embedding generation
@@ -306,10 +292,10 @@ ai-ta-platform/
 ## Troubleshooting
 
 ### Backend won't start
-- Check PostgreSQL is running
-- Verify DATABASE_URL in .env
-- Ensure ANTHROPIC_API_KEY is set
+- Ensure ANTHROPIC_API_KEY is set in .env
 - Check Python version (3.10+)
+- Verify SECRET_KEY is set
+- Delete ai_ta_platform.db and restart if database issues occur
 
 ### Frontend won't start
 - Check Node.js version (18+)

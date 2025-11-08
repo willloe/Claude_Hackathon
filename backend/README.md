@@ -10,7 +10,7 @@ FastAPI-based REST API for the AI Teaching Assistant platform.
 - **Vector Search** with ChromaDB
 - **PDF Processing** with chunking and embedding generation
 - **Claude Integration** for high-quality AI responses
-- **PostgreSQL** for relational data storage
+- **SQLite** for relational data storage (no setup required!)
 
 ## Setup
 
@@ -42,7 +42,7 @@ nano .env
 Required environment variables:
 
 ```env
-DATABASE_URL=postgresql://user:password@localhost:5432/ai_ta_platform
+DATABASE_URL=sqlite:///./ai_ta_platform.db  # Already set in .env.example
 SECRET_KEY=your-secret-key-here
 ANTHROPIC_API_KEY=your-anthropic-api-key
 ```
@@ -52,19 +52,9 @@ Generate SECRET_KEY:
 openssl rand -hex 32
 ```
 
-### 3. Set Up Database
+The SQLite database will be automatically created on first run. No database server installation needed!
 
-```bash
-# Create PostgreSQL database
-createdb ai_ta_platform
-
-# Or using psql:
-psql -U postgres -c "CREATE DATABASE ai_ta_platform;"
-```
-
-The application will automatically create tables on first run.
-
-### 4. Run the Server
+### 3. Run the Server
 
 ```bash
 # Development mode (auto-reload)
@@ -341,8 +331,8 @@ curl http://localhost:8000/health
 
 - Use ChromaDB persistent storage (set CHROMA_PERSIST_DIR)
 - Cache embedding model in memory
-- Index frequently queried fields in PostgreSQL
-- Use connection pooling for database
+- SQLite is perfect for single-server deployments
+- For production at scale, consider switching to PostgreSQL
 
 ## Security
 
@@ -373,7 +363,7 @@ docker run -p 8000:8000 ai-ta-backend
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| DATABASE_URL | PostgreSQL connection string | Required |
+| DATABASE_URL | SQLite database path | sqlite:///./ai_ta_platform.db |
 | SECRET_KEY | JWT signing key | Required |
 | ANTHROPIC_API_KEY | Claude API key | Required |
 | ALGORITHM | JWT algorithm | HS256 |

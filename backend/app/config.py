@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Database
-    DATABASE_URL: str = "postgresql://user:password@localhost:5432/ai_ta_platform"
+    DATABASE_URL: str = "sqlite:///./ai_ta_platform.db"
 
     # JWT
     SECRET_KEY: str = "your-secret-key-change-this"
