@@ -2,7 +2,6 @@
 ChromaDB vector store wrapper for document storage and retrieval.
 """
 import chromadb
-from chromadb.config import Settings
 from typing import List, Dict
 from .embeddings import generate_embeddings
 from ..config import settings as app_settings
@@ -13,10 +12,10 @@ class VectorStore:
 
     def __init__(self):
         """Initialize ChromaDB client."""
-        self.client = chromadb.Client(Settings(
-            persist_directory=app_settings.CHROMA_PERSIST_DIR,
-            anonymized_telemetry=False
-        ))
+        # Use PersistentClient for ChromaDB 0.4.x
+        self.client = chromadb.PersistentClient(
+            path=app_settings.CHROMA_PERSIST_DIR
+        )
 
     def _get_collection(self, course_id: str):
         """
